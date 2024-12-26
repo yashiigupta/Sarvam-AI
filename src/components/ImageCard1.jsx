@@ -1,8 +1,10 @@
 import React from 'react';
-
-const ImageCard1 = ({ image, caption }) => {
+const ImageCard1 = ({ image, caption, onClick }) => {
+  const handleClick = () => {
+    onClick(image, caption);
+  };
   return (
-    <div className="relative w-40 h-40 border border-white rounded-3xl mb-4">
+    <div className="relative w-40 h-40 border border-white rounded-3xl mb-4 hover:w-[9.7rem] hover:h-[9.7rem] cursor-pointer" onClick={handleClick}>
       <img 
         src={image} 
         alt="topic" 

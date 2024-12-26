@@ -3,11 +3,11 @@ import ConvoHeader from './ConvoHeader';
 import ConvoFooter from './ConvoFooter';
 import ConversationBox from './ConversationBox';
 
-const Conversation = () => {
+const Conversation = ({ image, caption }) => {
   return (
-    <div className='bg-[#FAF3EA] h-screen p-8'>
+    <div className='bg-[#FAF3EA] h-full p-8'>
       <ConvoHeader />
-      <ConversationBox />
+      <ConversationBox image = { image} caption={caption}/>
       <ConvoFooter />
     </div>
   )
