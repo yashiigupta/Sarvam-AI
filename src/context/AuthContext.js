@@ -12,6 +12,10 @@ export const AuthProvider = ({ children }) => {
     return localStorage.getItem('userName') || null;
   });
 
+  const getToken = () => {
+    return localStorage.getItem('authToken');
+  };
+
   // Function to handle user register
   const register = (token, name) => {
     setAuthToken(token); 
@@ -33,7 +37,7 @@ export const AuthProvider = ({ children }) => {
   }, [authToken, username]);
 
   return (
-    <AuthContext.Provider value={{ authToken, username, register, logout }}>
+    <AuthContext.Provider value={{ authToken, username, register, logout, getToken }}>
       {children}
     </AuthContext.Provider>
   );

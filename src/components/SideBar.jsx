@@ -1,6 +1,6 @@
 import React from 'react';
 
-const SideBar = ({ onDiscoverClick }) => {
+const SideBar = ({ onDiscoverClick, onThreadsClick }) => {
   return (
     <div className="h-full bg-[#faf3ea] flex flex-col items-center py-4 px-4 border-r border-gray-300 border-1">
       <button
@@ -12,7 +12,8 @@ const SideBar = ({ onDiscoverClick }) => {
         </svg>
         <p className='text-[#6B6255] text-sm md:text-base'>Discover</p>
       </button>
-      <button
+      {/* <button
+        onClick={onThreadsClick}
         className='flex flex-col items-center justify-center p-3 rounded-lg hover:bg-[#ede1d1] cursor-pointer w-18'
       >
         <svg width="24" height="24" fill="none" xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-[#6B6255]">
@@ -26,7 +27,7 @@ const SideBar = ({ onDiscoverClick }) => {
           <path d="M3 6C3 5.44772 2.55228 5 2 5C1.44772 5 1 5.44772 1 6V20.6667C1 21.9553 2.04467 23 3.33333 23H18C18.5523 23 19 22.5523 19 22C19 21.4477 18.5523 21 18 21H3.33333C3.14924 21 3 20.8508 3 20.6667V6Z" fill="currentColor"></path>
         </svg>
         <p className='text-[#6B6255] text-sm md:text-base'>Threads</p>
-      </button>
+      </button> */}
       <button
         className='flex flex-col items-center justify-center p-3 rounded-lg hover:bg-[#ede1d1] cursor-pointer w-20'
       >

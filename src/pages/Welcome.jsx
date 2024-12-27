@@ -1,9 +1,16 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import FlowerSvg from './Flower';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const Welcome = () => {
+  const {getToken} = useContext(AuthContext);
   const navigate = useNavigate();
+  useEffect(() => {
+    if (getToken()) {
+      navigate("/ai");
+    }
+  }, [getToken, navigate]);
   return (
     <div className='w-full h-full bg-[#FAF3EA] flex justify-center items-center p-4'>
       <div className='w-full md:w-1/2 h-full flex justify-center items-center flex-col'>

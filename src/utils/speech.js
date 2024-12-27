@@ -1,31 +1,51 @@
-let currentSpeech = null;
+let speaking = false;
+let currentUtterance = null;
 
-export const speak = (text, isSound) => {
-  // Cancel any ongoing speech
-  if (currentSpeech) {
-    window.speechSynthesis.cancel();
-  }
-  
-  // Don't start new speech if sound is off
-  if (!isSound) {
-    return;
-  }
+export const speak = (text) => {
+  return new Promise((resolve, reject) => {
+    if (!window.speechSynthesis) {
+      console.error('Speech synthesis not supported');
+      reject(new Error('Speech synthesis not supported'));
+      return;
+    }
 
-  const utterance = new SpeechSynthesisUtterance(text);
-  utterance.rate = 1;
-  utterance.pitch = 1;
-  currentSpeech = utterance;
-  
-  window.speechSynthesis.speak(utterance);
-  
-  utterance.onend = () => {
-    currentSpeech = null;
-  };
+    // Stop any existing speech
+    stopSpeaking();
+
+    // Create new utterance
+    const utterance = new SpeechSynthesisUtterance();
+    currentUtterance = utterance;
+    utterance.text = text;
+    utterance.lang = 'en-US';
+    utterance.rate = 1.0;
+    utterance.pitch = 1.0;
+    utterance.volume = 1.0;
+
+    // Set callbacks
+    utterance.onend = () => {
+      speaking = false;
+      resolve();
+    };
+
+    utterance.onerror = (event) => {
+      speaking = false;
+      reject(new Error(`Speech synthesis error: ${event.error}`));
+    };
+
+    // Start speaking
+    speaking = true;
+    window.speechSynthesis.speak(utterance);
+  });
 };
 
 export const stopSpeaking = () => {
-  if (window.speechSynthesis.speaking) {
+  if (window.speechSynthesis) {
     window.speechSynthesis.cancel();
-    currentSpeech = null;
   }
+  if (currentUtterance) {
+    currentUtterance = null;
+  }
+  speaking = false;
 };
+
+export const isSpeaking = () => speaking;
