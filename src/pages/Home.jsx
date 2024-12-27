@@ -43,7 +43,7 @@ const Home = (props) => {
             >
               ✕
             </button>
-            <div className='pt-16 md:pt-0'>
+            <div className='pt-16 md:pt-0 h-full'>
               <Explore onClick={handleImageClick} />
             </div>
           </div>

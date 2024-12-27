@@ -151,8 +151,8 @@ const ConversationBox = ({ image, caption }) => {
         />
         <button
           className={`flex items-center justify-center w-10 h-10 rounded-full
-            ${query.trim() && !isSending ? 'bg-green-600' : 'bg-white'} 
-            ${query.trim() && !isSending ? 'text-white' : 'text-[#c9b597]'}
+            ${query.trim() && !isSending ? 'bg-green-600' : 'bg-[#FAF3EA]'} 
+            ${query.trim() && !isSending ? 'text-white' : 'text-[#6B6255]'}
             hover:${query.trim() && !isSending ? 'bg-[#8d6d42]' : ''} 
             disabled:opacity-50`}
           aria-label="Send"

@@ -20,12 +20,10 @@ const ConvoHeader = () => {
       >
         {isSound ? (
           <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#0D3C26] lg:h-6 lg:w-6">
-            {/* Speaker base */}
             <path 
               fill="currentColor" 
               d="M12 3.75v16.5L7 16H4c-1.1 0-2-.9-2-2V10c0-1.1.9-2 2-2h3l5-4.25z"
             />
-            {/* Volume waves */}
             <path 
               fill="none"
               stroke="currentColor"
@@ -49,7 +47,7 @@ const ConvoHeader = () => {
             />
           </svg>
         ) : (
-          <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#6B6255] lg:h-6 lg:w-6">
+          <svg viewBox="0 0 24 24" className="h-5 w-5 text-[#0D3C26] lg:h-6 lg:w-6">
             {/* Speaker base */}
             <path 
               fill="currentColor" 
