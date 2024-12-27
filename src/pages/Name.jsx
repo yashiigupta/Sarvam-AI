@@ -1,14 +1,29 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from '../context/AuthContext';
 
 const TakeName = () => {
+  const { register } = useContext(AuthContext);
   const navigate = useNavigate();
 
   const [isSending, setIsSending] = useState(false);
   const [name, setName] = useState("");
 
-  const fetchData = async (nameText) => {
+  const fetchData = async (name) => {
     try {
+      const res = await fetch(`https://sarvamai-backend.onrender.com/api/v1/auth/auth/register?username=${name}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify()
+      });
+      const response = await res.json();
+      if (response.token) {
+        register(response.token, name);
+      } else {
+        console.error('Register user failed:', response.message);
+      }
       setIsSending(true);
       navigate("/ai")
     }
@@ -32,7 +47,7 @@ const TakeName = () => {
       <div className='flex flex-col justify-start items-start mt-16 text-[#0D3C26] font-semibold tracking-tighter mb-0'>
         <div className='flex w-full items-end '>
           <p className='text-3xl'>Hello! I'm Pi.</p>
-          <img src = "https://pi.ai/illustrations/high-five.svg" className='w-11 h-11'/>
+          <img src = "https://pi.ai/illustrations/high-five.svg" alt="welcome-clap" className='w-11 h-11'/>
         </div>
         <p className='text-3xl mb-3'>What's your name?</p>
         <div className='flex flex-col justify-center items-start mt-2 text-[#6B6255] font-medium font-sans text-base tracking-normal'>

@@ -1,13 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 import ExploreCard from './ExploreCard';
 import ImageCard1 from './ImageCard1';
 import ImageCard2 from './ImageCard2';
 import ImageCard3 from './ImageCard3';
 
 const Explore = ({ onClick }) => {
+  const { username } = useContext(AuthContext);
   return (
     <div className='bg-[#F7EFE3] border border-[#e1d3bd] p-8 h-full w-full overflow-y-auto flex flex-col items-start scrollbar-hide'>
-      <h1 className='text-[#0D3C26] tracking-tight font-medium text-3xl mb-6 '>Good afternoon, <span className='italic'>Mia</span></h1>
+      <h1 className='text-[#0D3C26] tracking-tight font-medium text-3xl mb-6 '>Good afternoon, <span className='italic'>{username}</span></h1>
       <div className="mb-5 h-full w-full">
         <ExploreCard/>
       </div>
@@ -33,4 +35,4 @@ const Explore = ({ onClick }) => {
   )
 }
 
-export default Explore
+export default Explore;

@@ -1,9 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useContext } from 'react';
+import AuthContext from '../context/AuthContext';
 import RenderCard from './RenderCard';
 import { useSound } from '../context/SoundContext';
 import { speak, stopSpeaking } from '../utils/speech';
 
 const ConversationBox = ({ image, caption }) => {
+  const { username } = useContext(AuthContext);
   const { isSound } = useSound();
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
@@ -47,17 +49,13 @@ const ConversationBox = ({ image, caption }) => {
       });
       const data = await res.json();
       
-      // Get the AI response text
       const aiResponse = data.candidates[0].content.parts[0].text;
-      
-      // Update the last message with AI response
       setResult(prev => {
         const newResults = [...prev];
         newResults[newResults.length - 1].answer = aiResponse.split("**");
         return newResults;
       });
 
-      // Speak the AI response
       speak(aiResponse, isSound);
       
     } catch (error) {
@@ -89,7 +87,7 @@ const ConversationBox = ({ image, caption }) => {
 
   useEffect(() => {
     if (loading && isSound) {
-      const greeting = "Hey there, great to meet you. I'm Pi, your personal AI. My goal is to be useful, friendly and fun. Ask me for advice, for answers, or let's talk about whatever's on your mind. How's your day going?";
+      const greeting = `Hey there, ${username}, nice to meet you. I'm Pi, your personal AI. My goal is to be useful, friendly and fun. Ask me for advice, for answers, or let's talk about whatever's on your mind. How's your day going?`;
       speak(greeting, isSound);
     }
   }, [loading, isSound]);
@@ -104,7 +102,7 @@ const ConversationBox = ({ image, caption }) => {
     <div className="relative flex flex-col items-center justify-end h-full w-full overflow-hidden px-2 sm:px-4 md:px-8">
       {loading ? 
         <div className='absolute top-10 flex flex-col justify-start items-start text-base sm:text-xl md:text-2xl text-[#0D3C26] font-medium w-[90%] sm:w-[80%] md:w-[65%] animate-fadeIn'>
-          <p className='mb-2 sm:mb-4'>Hey there, great to meet you. I'm Pi, your personal AI.</p>
+          <p className='mb-2 sm:mb-4'>Hey {username}, nice to meet you. I'm Pi, your personal AI.</p>
           <p className='mb-2 sm:mb-4'>My goal is to be useful, friendly and fun. Ask me for advice, for answers, or let's talk about whatever's on your mind.</p>
           <p>How's your day going?</p>
         </div>

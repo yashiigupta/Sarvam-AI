@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import SideBar from '../components/SideBar';
 import Explore from '../components/Explore';
+import Threads from '../components/Threads';
 import Conversation from '../components/Conversation';
 
 const Home = (props) => {
@@ -20,6 +21,7 @@ const Home = (props) => {
 
   return (
     <div className='flex h-screen w-screen overflow-hidden'>
+      {console.log(localStorage.authToken)}
       <div className='w-[90px] flex-shrink-0'>
         <SideBar onDiscoverClick={toggleExplore} />
       </div>
