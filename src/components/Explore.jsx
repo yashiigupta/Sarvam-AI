@@ -56,3 +56,4 @@ const Explore = ({ onClick, onClose }) => {
 }
 
 export default Explore;
+

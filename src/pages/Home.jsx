@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import SideBar from '../components/SideBar';
 import Explore from '../components/Explore';
+import Profile from '../components/Profile';
 import AuthContext from '../context/AuthContext';
 import Conversation from '../components/Conversation';
 import { useNavigate } from 'react-router-dom';
@@ -8,6 +9,7 @@ import { useNavigate } from 'react-router-dom';
 const Home = (props) => {
   const [conversationContent, setConversationContent] = useState({ image: '', caption: '' });
   const [isExploreOpen, setIsExploreOpen] = useState(false);
+  const [isProfileOpen, setIsProfileOpen] = useState(false);
   const [isThreadsOpen, setIsThreadsOpen] = useState(false);
   const [chatid, setChatid] = useState(null);
   const [messages, setMessages] = useState([]);
@@ -76,6 +78,12 @@ const Home = (props) => {
 
   const toggleExplore = () => {
     setIsExploreOpen(!isExploreOpen);
+    setIsProfileOpen(false);
+  };
+
+  const toggleProfile = () => {
+    setIsProfileOpen(!isProfileOpen);
+    setIsExploreOpen(false);
   };
 
   const toggleThreads = () => {
@@ -91,6 +99,7 @@ const Home = (props) => {
       <div className='w-[90px] flex-shrink-0'>
         <SideBar 
           onDiscoverClick={toggleExplore} 
+          onProfileClick={toggleProfile}
           onThreadsClick={toggleThreads}
         />
       </div>
@@ -123,6 +132,33 @@ const Home = (props) => {
           </div>
         </>
       )}
+
+      {isProfileOpen && (
+        <>
+          <div className='md:hidden fixed inset-0 bg-black bg-opacity-50 z-40' />
+          <div className={`
+            ${isProfileOpen ? 'translate-x-0' : '-translate-x-full'}
+            fixed md:relative
+            top-0 left-0 h-full
+            w-full md:w-96
+            bg-white
+            transition-transform duration-300
+            z-50 md:z-auto
+            flex-shrink-0
+          `}>
+            <button 
+              className='md:hidden absolute top-4 left-4 p-2 text-gray-600'
+              onClick={toggleProfile}
+            >
+              ✕
+            </button>
+            <div className='pt-16 md:pt-0 h-full'>
+              <Profile onClose={toggleProfile} />
+            </div>
+          </div>
+        </>
+      )}
+      
       <div className='flex-grow'>
         <Conversation 
           image={conversationContent.image}
@@ -137,3 +173,6 @@ const Home = (props) => {
 };
 
 export default Home;
+
+
+
