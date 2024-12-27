@@ -87,7 +87,6 @@ const ConversationBox = ({ image, caption }) => {
     }
   }, [result]);
 
-  // Add new useEffect for initial greeting
   useEffect(() => {
     if (loading && isSound) {
       const greeting = "Hey there, great to meet you. I'm Pi, your personal AI. My goal is to be useful, friendly and fun. Ask me for advice, for answers, or let's talk about whatever's on your mind. How's your day going?";
@@ -119,8 +118,9 @@ const ConversationBox = ({ image, caption }) => {
               {item.question !== caption ? 
                 <div className='text-base sm:text-lg text-[#0D3C26] font-medium bg-[#F5EADC] w-auto h-auto px-2 sm:px-3 py-1.5 sm:py-2 rounded-2xl flex justify-center items-end mt-2 sm:mt-3'>{item.question}</div>
                : <></>}
-              <ul className={item.answer.length > 1 ? "list-disc ml-4 sm:ml-5 mt-2 sm:mt-3" : "mt-2 sm:mt-3"}>{item.answer.map((impo, index) => (
-                impo !== "*" ? <li key={index}>{impo}</li> : <></>
+              <ul className={item.answer.length > 1 ? "list-disc ml-4 sm:ml-5 mt-2 sm:mt-3" : "mt-2 sm:mt-3"}>
+                {item.answer.map((impo, index) => (
+                !impo.trim().includes("*") && impo !== " " ? <li key={index}>{impo}</li> : <></>
               ))}</ul>
             </div>))}
           </>

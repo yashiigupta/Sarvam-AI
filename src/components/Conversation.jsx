@@ -5,7 +5,7 @@ import ConversationBox from './ConversationBox';
 
 const Conversation = ({ image, caption, sound }) => {
   return (
-    <div className='bg-[#FAF3EA] h-full p-8'>
+    <div className='bg-[#FAF3EA] h-full w-full p-8'>
       <ConvoHeader sound={sound} />
       <ConversationBox image = { image} caption={caption}/>
       <ConvoFooter />
