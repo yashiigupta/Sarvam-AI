@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState, useCallback } from 'react';
 import SideBar from '../components/SideBar';
 import Explore from '../components/Explore';
-// import Threads from '../components/Threads';
 import AuthContext from '../context/AuthContext';
 import Conversation from '../components/Conversation';
 import { useNavigate } from 'react-router-dom';
@@ -15,7 +14,6 @@ const Home = (props) => {
   const { getToken } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  // Make loadChatData a useCallback
   const loadChatData = useCallback(async (id) => {
     try {
       const token = getToken();
@@ -24,9 +22,7 @@ const Home = (props) => {
       const responseData = await res.json();
       
       if (responseData.data && responseData.data.data) {
-        // Parse the data string to get messages array
         const chatData = JSON.parse(responseData.data.data);
-        // Filter out system messages and set only assistant messages
         const assistantMessages = chatData.filter(msg => msg.role === 'assistant');
         setMessages(assistantMessages);
       }
@@ -82,12 +78,6 @@ const Home = (props) => {
     setIsExploreOpen(!isExploreOpen);
   };
 
-  // const handleThreadSelect = async (threadId) => {
-  //   setChatid(threadId);
-  //   await loadChatData(threadId);
-  //   setIsThreadsOpen(false);
-  // };
-
   const toggleThreads = () => {
     setIsThreadsOpen(!isThreadsOpen);
     if (!isThreadsOpen) {
@@ -104,8 +94,6 @@ const Home = (props) => {
           onThreadsClick={toggleThreads}
         />
       </div>
-
-      {/* Remove sound button */}
 
       {isExploreOpen && (
         <>
@@ -129,7 +117,7 @@ const Home = (props) => {
             <div className='pt-16 md:pt-0 h-full'>
               <Explore 
                 onClick={handleImageClick} 
-                onClose={toggleExplore}  // Add this line
+                onClose={toggleExplore} 
               />
             </div>
           </div>

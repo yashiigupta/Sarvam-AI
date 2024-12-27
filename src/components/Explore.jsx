@@ -5,9 +5,9 @@ import ImageCard1 from './ImageCard1';
 import ImageCard2 from './ImageCard2';
 import ImageCard3 from './ImageCard3';
 
-const Explore = ({ onClick, onClose }) => { // Add onClose prop
+const Explore = ({ onClick, onClose }) => {
   const { getToken } = useContext(AuthContext);
-  const username = "User"
+  const { username } = useContext(AuthContext)
   const handleCardClick = async (image, caption) => {
     try {
       const token = getToken();
@@ -20,7 +20,7 @@ const Explore = ({ onClick, onClose }) => { // Add onClose prop
       const data = await response.json();
       if (data.data && data.data.id) {
         onClick(image, caption, data.data.id);
-        onClose(); // Close the discover section after successful chat creation
+        onClose();
       }
     } catch (error) {
       console.error('Error creating chat:', error);
